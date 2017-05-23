@@ -128,7 +128,7 @@ Pour mettre les bases de travail, nous allons faire un équivalent "Hello World"
 
 Avant de commencer, il faut savoir à ce jour que la documentation est rédigé pour la version 6.1 de PHPUnit et que l'accès à la classe PHP Fournie à changé.
 
-Ayant une ancienne version d'installé et pour l'historique, je vais instancié le test par la vieille syntaxe. La nouvelle syntaxe utilise les shortcuts à l'aide du mot clé `use`{.php}.
+Ayant une ancienne version d'installé et pour l'historique, je vais instancié le test par la vieille syntaxe. La nouvelle syntaxe utilise les shortcuts à l'aide du mot clé `use`.
 
 Créez le fichier `test.php` et placez-y le code suivant :
 
@@ -152,8 +152,8 @@ class StackTest extends PHPUnit_Framework_TestCase
 ?>
 ```
 
-* Vieille syntaxe : `class StackTest extends PHPUnit_Framework_TestCase`{.php}
-* Nouvelle syntaxe : `class StackTest extends TestCase`{.php}
+* Vieille syntaxe : `class StackTest extends PHPUnit_Framework_TestCase`
+* Nouvelle syntaxe : `class StackTest extends TestCase`
 
 Il ne reste plus qu'à lancer le "Hello World" du test :
 
@@ -173,3 +173,36 @@ OK (1 test, 5 assertions)
 Voilà, les tests fonctionnents parfaitement. Il ne reste plus qu'à customiser les nombreux paramètres existant !
 
 
+# 5. Fichier de configuration
+
+Comme je l'ai dis plutôt, **PHPUnit** offre une grandes quantité de fonctionnalité. L'exploitation de ces fonctionnalités peut devenir lourd en ligne de commande. Si dans le dossier courant, la présence d'un fichier `phpunit.xml.dist` ou `phpunit.xml` est présent, alors celui-ci sera lu est traitera la configuration présente. Le fichier `phpunit.xml` est prioritaire sur le fichier `phpunit.xml.dist`.
+
+Il existe deux arguments pour la ligne de commande :
+   * `--configuration <file>` ou encore `-c <file>`
+   * `--no-configuration`
+   
+Si l'argument `--configuration <file>` est spécifié, alors le fichier indiqué sera chargé est primera sur `phpunit.xml.dist` et `phpunit.xml`.
+Si l'argument `--no-configuration`, aucun des fichiers de configuration par défaut ne sera chargé.
+
+Le fichier `phpunit.xml` permet de spécifier une liste de fichier PHP à executé dans lesquels se trouvent des tests unitaire. Il est aussi possible de spécifier des dossiers à lire. C'est valable également pour faire des exclusions.
+
+Voici le fichier `phpunit.xml` dans sa configuration minimales requise, équivalent à la commande.
+
+```bash
+phpunit test.php
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit>
+    <testsuites>
+        <testsuite>
+           <file>test.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>
+```
+
+**Important** : En l'absence du block `<testsuites></testsuites`, il faudra spécifier un fichier à executer dans lequel se trouve les tests. Si vous ne le faites pas, le manuel sera affiché et laissera pensé que cela ne fonctionne pas.
+
+**note** : Il n'est pas inutile d'indique le doctype XML. Question de rigeur.

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Source : https://phpunit.de/manual/6.1/en/appendixes.configuration.html -->
+<phpunit colors="true">
+    <testsuites>
+        <testsuite>
+            <file>test.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>
