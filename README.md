@@ -175,16 +175,16 @@ Voilà, les tests fonctionnents parfaitement. Il ne reste plus qu'à customiser 
 
 # 5. Fichier de configuration
 
-Comme je l'ai dis plutôt, **PHPUnit** offre une grandes quantité de fonctionnalité. L'exploitation de ces fonctionnalités peut devenir lourd en ligne de commande. Si dans le dossier courant, la présence d'un fichier `phpunit.xml.dist` ou `phpunit.xml` est présent, alors celui-ci sera lu est traitera la configuration présente. Le fichier `phpunit.xml` est prioritaire sur le fichier `phpunit.xml.dist`.
+Comme je l'ai dis plutôt, **PHPUnit** offre une grandes quantité de fonctionnalité. L'exploitation de ces fonctionnalités peut devenir lourd en ligne de commande. Si dans le dossier courant, la présence d'un fichier `phpunit.xml.dist` ou `phpunit.xml` est présent, alors celui-ci sera lu et traitera la configuration présente. Le fichier `phpunit.xml` est prioritaire sur le fichier `phpunit.xml.dist`.
 
 Il existe deux arguments pour la ligne de commande :
    * `--configuration <file>` ou encore `-c <file>`
    * `--no-configuration`
    
 Si l'argument `--configuration <file>` est spécifié, alors le fichier indiqué sera chargé est primera sur `phpunit.xml.dist` et `phpunit.xml`.
-Si l'argument `--no-configuration`, aucun des fichiers de configuration par défaut ne sera chargé.
+Si l'argument `--no-configuration` est utilisé, aucun des fichiers de configuration par défaut ne sera chargé.
 
-Le fichier `phpunit.xml` permet de spécifier une liste de fichier PHP à executé dans lesquels se trouvent des tests unitaire. Il est aussi possible de spécifier des dossiers à lire. C'est valable également pour faire des exclusions.
+Le fichier `phpunit.xml` permet de spécifier une liste de fichier PHP à executer dans lesquels se trouvent des tests unitaire. Il est aussi possible de spécifier des dossiers à lire. C'est valable également pour faire des exclusions.
 
 Voici le fichier `phpunit.xml` dans sa configuration minimales requise, équivalent à la commande.
 
@@ -203,6 +203,54 @@ phpunit test.php
 </phpunit>
 ```
 
-**Important** : En l'absence du block `<testsuites></testsuites`, il faudra spécifier un fichier à executer dans lequel se trouve les tests. Si vous ne le faites pas, le manuel sera affiché et laissera pensé que cela ne fonctionne pas.
+**Important** : En l'absence du block `<testsuites></testsuites`, il faudra spécifier un fichier à executer dans lequel se trouve les tests. Si vous ne le faites pas, le manuel sera affiché et laissera penser que cela ne fonctionne pas.
 
-**note** : Il n'est pas inutile d'indique le doctype XML. Question de rigeur.
+**Note** : Il n'est pas inutile d'indiquer le doctype XML. Question de rigeur.
+
+Maintenant, si l'on tape la commande `phpunit`, nous obtenons le résultat suivant :
+
+```bash
+PHPUnit 4.8.35 by Sebastian Bergmann and contributors.
+
+.
+
+Time: 1.16 seconds, Memory: 8.00MB
+
+OK (1 test, 5 assertions)
+```
+
+C'est très rassurant, car c'est le même résultat obtenu avant l'utilisation du fichier `phpunit.xml`
+
+
+# 6. Ajouter de la couleur à ses tests
+
+Il est possible d'améliorer le visuel obtenu lors des tests en ajoutant des couleurs. Dans PHPUnit, les arguments admissible par la ligne de commande sont également possible par le fichier de configuration `phpunit.xml` (Pour la plupart, car je n'ai pas testé un par un).
+
+Pour ajouter de la couleur et obtenir le résultat ci-dessous, en ligne de commande on aurais ajouté l'argument `--colors=always`
+
+![PHPUnit - Console Colorisé][phpunit-colors]
+
+La configuration équivalent dans le fichier `phpunit.xml` est l'ajout de l'attribut du même nom `colors` à l'élement `<phpunit>`. Il accepte `true` ou `false`
+
+```xml
+<phpunit colors="true">
+    ...
+</phpunit>
+```
+
+
+# A. Référentiel des attributes
+
+## Block phpunit
+
+* colors : Afficher un résultat colorisé
+  * true : Active
+  * false : Désactivé
+
+## Block testsuites
+
+## Block testsuite
+
+
+
+[phpunit-colors]: https://github.com/neooblaster/PHPUnit/raw/master/lib/images/phpunit-colors.png "PHPUnit - Console Colorisé"
